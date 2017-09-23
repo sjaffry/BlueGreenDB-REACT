@@ -297,7 +297,7 @@ class App extends React.Component {
   	return(
     	<div>
         <div className="container">
-          <h2>Transaction Analytics DB V1</h2>
+          <h2>Transaction Analytics DB V2</h2>
           <button type="button" onClick={this.handleClick} className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Get Virtual Accounts</button>
         <AccountList accounts={this.state.accounts} />
         </div>
