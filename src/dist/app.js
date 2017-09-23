@@ -544,12 +544,6 @@ var AccountTransactions = function (_React$Component2) {
         _this3.addTransactions(resp.data);
       });
     };
-
-    _this3.handlePostTransaction = function (event) {
-      console.log('PostTransaction Fired!');
-    };
-
-    _this3.getTransactions();
     return _this3;
   }
 
@@ -561,7 +555,7 @@ var AccountTransactions = function (_React$Component2) {
         { className: 'btn-group' },
         React.createElement(
           'button',
-          { type: 'button', className: 'btn btn-info btn-sm', 'data-toggle': 'modal', 'data-target': '#myModal' },
+          { type: 'button', onClick: this.getTransactions, className: 'btn btn-info btn-sm', 'data-toggle': 'modal', 'data-target': '#myModal' },
           'Get Transactions'
         ),
         React.createElement(
@@ -577,7 +571,7 @@ var AccountTransactions = function (_React$Component2) {
         React.createElement(
           'div',
           { className: 'modal fade', id: 'txnPostModal', role: 'dialog' },
-          React.createElement(TransactionForm, { onSubmit: this.handlePostTransaction })
+          React.createElement(TransactionForm, null)
         )
       );
     }

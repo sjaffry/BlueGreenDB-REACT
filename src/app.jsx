@@ -254,24 +254,18 @@ class AccountTransactions extends React.Component {
       .then((resp) => {
       this.addTransactions(resp.data);})
     };
-
-    this.handlePostTransaction = (event) => {
-      console.log('PostTransaction Fired!');
-    };
-
-    this.getTransactions();
   };
 
   render(){
   return(
     <div className="btn-group">
-          <button type="button" className="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>  
+          <button type="button" onClick={this.getTransactions} className="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>  
           <div className="modal fade" id="myModal" role="dialog">
               <TransactionList transactions={this.state.transactions} />
           </div>
           <button type="button" className="btn btn-warning btn-sm" data-toggle="modal" data-target="#txnPostModal">Post Transactions</button>                    
           <div className="modal fade" id="txnPostModal" role="dialog">
-              <TransactionForm onSubmit={this.handlePostTransaction}/>
+              <TransactionForm />
           </div>
     </div>
   );
