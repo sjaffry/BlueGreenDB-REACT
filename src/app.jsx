@@ -1,3 +1,11 @@
+var instance = axios.create({  
+  timeout: 10000,
+  headers: {'Authorization': 'Basic ZGV2OmRldg==',
+            'Content-Type': 'application/json',
+            'Cifcode': '366898'
+          }
+});
+
 const Level = (props) => {
 	return (    
           <tr>
@@ -97,11 +105,8 @@ const Account = (props) => {
                       <td>${props.adjustedBalance}</td>
                       <td>${props.adjustedAvailableFunds}</td>
                       <td>                      
-                          <button type="button" className="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>
-                          <div className="modal fade" id="myModal" role="dialog">
-                            <AccountTransactions />
-                          </div> 
-                      </td>
+                        <AccountTransactions />
+                      </td>                     
                     </tr>
                   </tbody>
                 </table>
@@ -120,6 +125,79 @@ const AccountList = (props) => {
       {props.accounts.map(account => <Account key={account.accountId} {...account} />)}
     </div>
   );
+};
+
+class TransactionForm extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      "Amount": "",
+      "Description": "",
+      "TransactionStatus": "Unposted",
+      "TransactionStatusLabel": "label label-warning"
+    };
+    this.handleSubmit = (event) => {
+      event.preventDefault();
+      instance.post(
+        'https://api-bluegreendb.azurewebsites.net/clients/366898/virtualaccounts/1/transactions', 
+        {
+          Amount: this.state.Amount,
+          Description: this.state.Description
+        })
+        .then(response => {
+          console.log(response);
+          this.setState({
+            "TransactionStatus": "Posted!",
+            "TransactionStatusLabel": "label label-success"
+          })
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({
+            "TransactionStatus": "Error!",
+            "TransactionStatusLabel": "label label-danger"
+          })
+        });
+    }
+  };
+
+  render() {
+    return(
+        <div>
+        <div>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h4 className="modal-title">New Transaction</h4>
+                <h5>TransactionStatus <span className={this.state.TransactionStatusLabel}>{this.state.TransactionStatus}</span></h5>
+              </div>
+              <div className="modal-body">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <label for="amt">Amount:</label>
+                    <input type="text" 
+                      onChange={(event) => this.setState({"Amount": event.target.value})}
+                      className="form-control" id="amt" placeholder="$"/>
+                  </div>
+                  <div className="form-group">
+                    <label for="desc">Description:</label>
+                    <input type="text" 
+                    onChange={(event) => this.setState({"Description": event.target.value})}                    
+                    className="form-control" id="desc"/>
+                  </div>
+                  <button type="submit" className="btn btn-default">Submit</button>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>                              
+          </div>
+        </div>
+        </div>
+    );
+  };
 };
 
 const TransactionList = (props) => {
@@ -157,14 +235,6 @@ const TransactionList = (props) => {
   );
 };
 
-var instance = axios.create({  
-  timeout: 10000,
-  headers: {'Authorization': 'Basic ZGV2OmRldg==',
-            'Content-Type': 'application/json',
-            'Cifcode': '366898'
-          }
-});
-
 class AccountTransactions extends React.Component {
   constructor (props) {
     super(props);
@@ -183,14 +253,26 @@ class AccountTransactions extends React.Component {
       instance.get(`https://api-bluegreendb.azurewebsites.net/clients/366898/virtualaccounts/1/transactions`)
       .then((resp) => {
       this.addTransactions(resp.data);})
-    }
+    };
+
+    this.handlePostTransaction = (event) => {
+      console.log('PostTransaction Fired!');
+    };
 
     this.getTransactions();
   };
+
   render(){
   return(
-    <div>
-      <TransactionList transactions={this.state.transactions} />
+    <div className="btn-group">
+          <button type="button" className="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>  
+          <div className="modal fade" id="myModal" role="dialog">
+              <TransactionList transactions={this.state.transactions} />
+          </div>
+          <button type="button" className="btn btn-warning btn-sm" data-toggle="modal" data-target="#txnPostModal">Post Transactions</button>                    
+          <div className="modal fade" id="txnPostModal" role="dialog">
+              <TransactionForm onSubmit={this.handlePostTransaction}/>
+          </div>
     </div>
   );
 };
@@ -211,7 +293,6 @@ class App extends React.Component {
       };
       
       this.handleClick = (event) => {  
-        //instance.get(`http://localhost:3000/api/vaccounts`)
         instance.get(`https://api-bluegreendb.azurewebsites.net/clients/366898/virtualaccounts/`)
         .then((resp) => {
         this.addVAccount(resp.data);})
