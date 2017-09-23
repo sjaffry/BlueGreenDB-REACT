@@ -42,7 +42,7 @@ var LevelList = function LevelList(props) {
     null,
     React.createElement(
       'div',
-      { className: 'panel panel-primary' },
+      { className: 'panel panel-success' },
       React.createElement(
         'h5',
         { className: 'panel-heading' },
@@ -91,7 +91,7 @@ var VirtualAccount = function VirtualAccount(props) {
     { style: { margin: '1em' } },
     React.createElement(
       'div',
-      { className: 'panel panel-primary' },
+      { className: 'panel panel-success' },
       React.createElement(
         'h4',
         { className: 'panel-heading' },
@@ -200,7 +200,7 @@ var Account = function Account(props) {
     null,
     React.createElement(
       'div',
-      { className: 'panel panel-primary' },
+      { className: 'panel panel-success' },
       React.createElement(
         'h3',
         { className: 'panel-heading' },
@@ -555,7 +555,7 @@ var AccountTransactions = function (_React$Component2) {
         { className: 'btn-group' },
         React.createElement(
           'button',
-          { type: 'button', onClick: this.getTransactions, className: 'btn btn-info btn-sm', 'data-toggle': 'modal', 'data-target': '#myModal' },
+          { type: 'button', onClick: this.getTransactions, className: 'btn btn-success btn-sm', 'data-toggle': 'modal', 'data-target': '#myModal' },
           'Get Transactions'
         ),
         React.createElement(
@@ -620,11 +620,11 @@ var App = function (_React$Component3) {
           React.createElement(
             'h2',
             null,
-            'Transaction Analytics DB V1'
+            'Transaction Analytics DB V2'
           ),
           React.createElement(
             'button',
-            { type: 'button', onClick: this.handleClick, className: 'btn btn-info btn-lg', 'data-toggle': 'modal', 'data-target': '#myModal' },
+            { type: 'button', onClick: this.handleClick, className: 'btn btn-success btn-lg', 'data-toggle': 'modal', 'data-target': '#myModal' },
             'Get Virtual Accounts'
           ),
           React.createElement(AccountList, { accounts: this.state.accounts })

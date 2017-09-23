@@ -18,7 +18,7 @@ const Level = (props) => {
 const LevelList = (props) => {
 	return(
   	<div>
-      <div className="panel panel-primary">
+      <div className="panel panel-success">
         <h5 className="panel-heading">Levels</h5>
         <div className="panel-body">
           <table className="table table-hover">
@@ -40,7 +40,7 @@ const LevelList = (props) => {
 const VirtualAccount = (props) => {
 	return (
   	<div style={{margin:'1em'}}>        
-      <div className="panel panel-primary">
+      <div className="panel panel-success">
         <h4 className="panel-heading">Virtual Account</h4>
             <div className="panel-body">
               <table className="table table-hover">
@@ -86,7 +86,7 @@ const Transaction = (props) => {
 const Account = (props) => {
 	return (
   	<div>
-            <div className="panel panel-primary">
+            <div className="panel panel-success">
               <h3 className="panel-heading">Account</h3>
               <div className="panel-body">
                 <table className="table table-hover">
@@ -259,7 +259,7 @@ class AccountTransactions extends React.Component {
   render(){
   return(
     <div className="btn-group">
-          <button type="button" onClick={this.getTransactions} className="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>  
+          <button type="button" onClick={this.getTransactions} className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">Get Transactions</button>  
           <div className="modal fade" id="myModal" role="dialog">
               <TransactionList transactions={this.state.transactions} />
           </div>
@@ -298,7 +298,7 @@ class App extends React.Component {
     	<div>
         <div className="container">
           <h2>Transaction Analytics DB V2</h2>
-          <button type="button" onClick={this.handleClick} className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Get Virtual Accounts</button>
+          <button type="button" onClick={this.handleClick} className="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Get Virtual Accounts</button>
         <AccountList accounts={this.state.accounts} />
         </div>
       </div>
